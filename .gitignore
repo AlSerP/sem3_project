@@ -1,0 +1,9 @@
+django_venv/
+venv/
+.idea/
+db.sqlite3
+pages/migrations/
+pages/__init__.py
+pages/__pycache__/
+stankin_project/__init__.py
+stankin_project/__pycache__/
