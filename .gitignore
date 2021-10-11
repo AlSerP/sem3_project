@@ -3,6 +3,10 @@ venv/
 .idea/
 db.sqlite3
 
+imagesApp/migrations/
+imagesApp/__pycache__/
+imagesApp/__init__.py
+
 pages/migrations/
 pages/__pycache__/
 pages/__init__.py
@@ -13,3 +17,5 @@ accounts/__init__.py
 
 stankin_project/__init__.py
 stankin_project/__pycache__/
+
+media/
