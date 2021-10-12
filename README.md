@@ -56,45 +56,48 @@ $ git pull
 $ git push origin branch
 ```
 
-## Venv (виртуальная среда)
+# Запуск проета
 
-Создание Venv'а необходимо для локального хранения библиотек, необходимых для проекта:
+### Venv (виртуальная среда)
+
+Создание Venv'а с имененм new_venv (имя любое). Необходимо для локального хранения библиотек, необходимых для проекта:
 
 ```bash
 $ python3 -m venv new_venv
 ```
-
-Если получаем ошибку:
-*"The virtual environment was not created successfully because ensurepip is not available... "*
-
-Нужно дополнительно установить:
-
+-------------
+Если получаем ошибку, нужно установить:
 ```bash
-sudo apt-get install python3-venv
+pip install virtualenv
 ```
+-------------
 
 Вход в *venv*:
 
 ```bash
-new_venv/Scripts> activate
+$ "new_venv/Scripts/activate"
 ```
 
 Для выхода из виртуального окружения *venv* наберите:
 
 ```bash
-new_venv/Scripts> deactivate.bat
+(new_venv) $ "new_venv/Scripts/deactivate.bat"
 ```
 
-
-## Запуск проекта
-
-Установка библиотек
+Установка необходимых библиотек из файла *requirements.txt*
 
 ```bash
 (new_venv) ~$ pip install -r requirements.txt
 ```
 
-Запуск проета
+Необходимо создать и применить миграции для формирования базы данных:
+
+```bash
+(new_venv) ~$ python manage.py makemigrations 
+(new_venv) ~$ python manage.py migrate 
+```
+
+Теперь можно запутить проект по адресу 127.0.0.1:8000/
 
 ```bash
 (new_venv) ~$ python manage.py runserver

@@ -3,7 +3,7 @@
 {% block title %} My Images {% endblock %}
 
 {% block content %}
-    <h1>My Images</h1>
+    <h2>My Images</h2>
 
     {% if images %}
     <ul>
@@ -14,7 +14,7 @@
                     <a href="{% url 'image_edit' image.pk %}">Edit</a> |
                     <a href="{% url 'image_delete' image.pk %}">Delete</a>
                 </span>
-                <img src="{{ image.image.url }}" style="max-width: 400px; margin-left: 50px">
+                <a href="{% url 'image_show' image.pk %}"><img src="{{ image.image.url }}" style="max-width: 400px; margin-left: 50px"></a>
                 <hr align="left" color="#333" width="500px" size="1px">
             </li>
         {% endfor %}
