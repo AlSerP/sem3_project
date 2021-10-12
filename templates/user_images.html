@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} My Images {% endblock %}
+
+{% block content %}
+    <h1>My Images</h1>
+
+    {% if images %}
+    <ul>
+        {% for image in images %}
+            <li>
+                <h3>{{ image.title }}</h3>
+                <span>
+                    <a href="{% url 'image_edit' image.pk %}">Edit</a> |
+                    <a href="{% url 'image_delete' image.pk %}">Delete</a>
+                </span>
+                <img src="{{ image.image.url }}" style="max-width: 400px; margin-left: 50px">
+                <hr align="left" color="#333" width="500px" size="1px">
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock%}

@@ -12,7 +12,19 @@ class HomePageView(ListView):
     template_name = 'home.html'
 
     def get_queryset(self):
+        # if self.request.user.is_authenticated:
+        #     user = CustomUser.objects.get(id=self.request.user.id)  # filter by user
+        #     return Image.objects.filter(user=user)
+        return Image.objects.all()[:5]
+
+
+class UserImagesView(ListView):
+    model = Image
+    context_object_name = 'images'  # Name of list
+    template_name = 'user_images.html'
+
+    def get_queryset(self):
         if self.request.user.is_authenticated:
             user = CustomUser.objects.get(id=self.request.user.id)  # filter by user
             return Image.objects.filter(user=user)
-        return Image.objects.all()
+        return Image.objects.all()[:0]

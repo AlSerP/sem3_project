@@ -9,9 +9,9 @@
     <ul>
         {% for image in images %}
             <li>
-                    <h3>{{ image.title }}</h3>
-                    <img src="{{ image.image.url }}" style="max-width: 400px; margin-left: 50px">
-                    <hr align="left" color="#333" width="500px" size="1px">
+                <h3>{{ image.title }}</h3>
+                <a href="{% url 'image_show' image.pk %}"><img src="{{ image.image.url }}" style="max-width: 400px; margin-left: 50px"></a>
+                <hr align="left" color="#333" width="500px" size="1px">
             </li>
         {% endfor %}
     </ul>
