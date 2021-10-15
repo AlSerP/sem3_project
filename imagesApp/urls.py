@@ -7,4 +7,5 @@ urlpatterns = [
     path('<int:pk>/', views.ImageView.as_view(), name='image_show'),
     path('<int:pk>/edit/', views.ImageUpdateView.as_view(), name='image_edit'),
     path('<int:pk>/delete/', views.ImageDeleteView.as_view(), name='image_delete'),
+    path('<int:pk>/comment/', views.UploadCommentView.as_view(), name='comment_upload'),
 ]

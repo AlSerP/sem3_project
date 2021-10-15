@@ -17,11 +17,11 @@
         <span><a href="#">Like</a> or <a href="#">Dislike</a></span> |
     {% endif %}
     <a href="{{ object.image.url }}" download>Save</a> |
-    <a href="{% url 'home' %}">Home page</a>
-
+    <a href="{% url 'home' %}">Home page</a> |
+    <a href="{% url 'comment_upload' object.pk %}">Comment</a>
     <ul>
         {% for comment in object.comments.all %}
-            <li><b>{{ comment.user }}</b> - {{ comment.text }}</li>
+            <li id="{{ comment.pk }}"><b>{{ comment.user }}</b> - {{ comment.text }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

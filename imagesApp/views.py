@@ -50,3 +50,15 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
     def get(self, request, *args, **kwargs):
         does_have_permission(self.request.user, Image.objects.get(pk=self.kwargs['pk']))
         return super().get(request, *args, **kwargs)
+
+
+class UploadCommentView(LoginRequiredMixin, CreateView):
+    """Регестрация пользователя"""
+    model = Comment
+    template_name = 'comments/comment_upload.html'
+    fields = ['text']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.image = Image.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
