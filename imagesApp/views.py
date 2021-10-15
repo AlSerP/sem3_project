@@ -1,12 +1,19 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from .forms import ImageForm
-from .models import Image
+from .models import Image, Comment
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
 
-class UploadImageView(CreateView):
+def does_have_permission(user, obj):
+    if user != obj.user:
+        raise PermissionDenied({"message": "You don't have permission to access"})
+
+
+class UploadImageView(LoginRequiredMixin, CreateView):
     """Регестрация пользователя"""
     model = Image
     template_name = 'upload_image.html'
@@ -25,13 +32,21 @@ class ImageView(UpdateView):
     template_name = 'image/image_page.html'
 
 
-class ImageUpdateView(UpdateView):
+class ImageUpdateView(LoginRequiredMixin, UpdateView):
     model = Image
     fields = ['title']
     template_name = 'image/image_edit.html'
 
+    def get(self, request, *args, **kwargs):
+        does_have_permission(self.request.user, Image.objects.get(pk=self.kwargs['pk']))
+        return super().get(request, *args, **kwargs)
 
-class ImageDeleteView(DeleteView):
+
+class ImageDeleteView(LoginRequiredMixin, DeleteView):
     model = Image
     template_name = 'image/image_delete.html'
     success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        does_have_permission(self.request.user, Image.objects.get(pk=self.kwargs['pk']))
+        return super().get(request, *args, **kwargs)

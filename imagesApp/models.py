@@ -20,3 +20,14 @@ class Image(models.Model):
     def get_absolute_url(self):
         return f'/images/{self.pk}'
     # TODO: get_absolute_url
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, related_name='comments')
+    text = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.text
+
+    # def get_absolute_url(self):
