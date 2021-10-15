@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class SignUpView(CreateView):
     """Регестрация пользователя"""
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('home')  # используется, поскольку становится доступно с запазданием
+    success_url = reverse_lazy('home')
     template_name = 'registration/signup.html'
 
     def form_valid(self, form):
@@ -20,6 +20,8 @@ class SignUpView(CreateView):
 
         user = authenticate(username=username, password=password)
         login(self.request, user)
+
+        return super().form_valid(form)
 
 
 class PasswordResetView(LoginRequiredMixin, CreateView):
