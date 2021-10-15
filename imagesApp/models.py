@@ -14,6 +14,16 @@ class Image(models.Model):
     image = models.ImageField(upload_to=directory_path)
     rating = models.IntegerField(default=0)
 
+    def like(self, user):
+        # print(user.username, 'get liked', self.pk)
+        self.rating += 1
+        self.save()
+
+    def dislike(self, user):
+        print(user.username, 'get liked', self.pk)
+        self.rating -= 1
+        self.save()
+
     def __str__(self):
         return self.title
 

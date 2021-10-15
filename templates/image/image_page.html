@@ -14,7 +14,8 @@
             <a href="{% url 'image_delete' object.pk %}">Delete</a> |
         </span>
     {% else %}
-        <span><a href="#">Like</a> or <a href="#">Dislike</a></span> |
+        <span>{{ object.rating }} - <a href="{% url 'like' object.pk %}">Like</a> or
+            <a href="{% url 'dislike' object.pk %}">Dislike</a></span> |
     {% endif %}
     <a href="{{ object.image.url }}" download>Save</a> |
     <a href="{% url 'home' %}">Home page</a> |

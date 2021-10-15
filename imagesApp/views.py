@@ -62,3 +62,15 @@ class UploadCommentView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         form.instance.image = Image.objects.get(pk=self.kwargs['pk'])
         return super().form_valid(form)
+
+
+def like_image(request, **kwargs):
+    image = Image.objects.get(pk=kwargs['pk'])
+    image.like(request.user)
+    return redirect(image.get_absolute_url())
+
+
+def dislike_image(request, **kwargs):
+    image = Image.objects.get(pk=kwargs['pk'])
+    image.dislike(request.user)
+    return redirect(image.get_absolute_url())
