@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from .forms import ImageForm
@@ -17,7 +17,7 @@ class UploadImageView(LoginRequiredMixin, CreateView):
     """Регестрация пользователя"""
     model = Image
     template_name = 'upload_image.html'
-    success_url = reverse_lazy('home')  # используется, поскольку становится доступно с запазданием
+    success_url = reverse_lazy('user_images')  # используется, поскольку становится доступно с запазданием
     fields = ['title', 'image']
 
     def form_valid(self, form):
@@ -74,3 +74,12 @@ def dislike_image(request, **kwargs):
     image = Image.objects.get(pk=kwargs['pk'])
     image.dislike(request.user)
     return redirect(image.get_absolute_url())
+
+
+class AllImagesView(ListView):
+    model = Image
+    context_object_name = 'images'
+    template_name = 'home.html'
+
+    def get_queryset(self):
+        return Image.objects.all()
