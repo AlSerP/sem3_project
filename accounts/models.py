@@ -7,3 +7,6 @@ class CustomUser(AbstractUser):
 
     class Meta(object):
         unique_together = ('email',)
+
+    def __str__(self):
+        return self.username
