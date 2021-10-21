@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.nav-item{
+
+
+  padding-right: 10px;
+}
+ .navbar{
+  font-family:serif;
+  font-size: 20px;
+  background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+ }
+ .dropdown-menu{
+
+  margin: -160px;
+
+  }
+.navbar-brand{
+
+  margin-right: 90px;
+}
+.nabbar-toggler{
+position: relative;
+right: 100px !important;
+}
