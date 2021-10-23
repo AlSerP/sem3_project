@@ -3,7 +3,7 @@ from django.views.generic import CreateView, DeleteView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.datastructures import MultiValueDictKeyError
 from django.core.exceptions import PermissionDenied
-from .forms import ImageForm
+from .forms import ImageForm, ImageUpdate
 from .models import Image, Comment, Tag
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -33,10 +33,10 @@ class UploadImageView(LoginRequiredMixin, CreateView):
         form.instance.user = user
         form.instance.rating = 0
         form.save()
-        for tag in form.cleaned_data['tags'].replace(' ', '').split(','):
+        for tag in form.cleaned_data['tags'].replace(' ', '').split(','):  # TODO: Вынести в функцию
             tag_obj: Tag
             if Tag.objects.filter(name=tag).exists():
-                tag_obj = image.tags.add(Tag.objects.get(name=tag))
+                tag_obj = Tag.objects.get(name=tag)
             else:
                 tag_obj: Tag = Tag(name=tag)
                 tag_obj.save()
@@ -47,12 +47,27 @@ class UploadImageView(LoginRequiredMixin, CreateView):
 
 class ImageUpdateView(LoginRequiredMixin, UpdateView):
     model = Image
-    fields = ['title', 'tags']
+    form_class = ImageUpdate
     template_name = 'image/image_edit.html'
 
     def get(self, request, *args, **kwargs):
         does_have_permission(self.request.user, Image.objects.get(pk=self.kwargs['pk']))
         return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        image = form.save(commit=False)
+        form.save()
+        for tag in form.cleaned_data['tags'].replace(' ', '').lower().split(','):  # TODO: Вынести в функцию
+            if tag.replace(' ', ''):
+                tag_obj: Tag
+                if Tag.objects.filter(name=tag).exists():
+                    tag_obj = Tag.objects.get(name=tag)
+                else:
+                    tag_obj: Tag = Tag(name=tag)
+                    tag_obj.save()
+                form.instance.tags.add(tag_obj)
+                form.save()
+        return super(ImageUpdateView, self).form_valid(form)
 
 
 class ImageDeleteView(LoginRequiredMixin, DeleteView):

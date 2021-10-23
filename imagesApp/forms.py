@@ -16,7 +16,7 @@ class ImageUpdate(forms.ModelForm):
         model = Image
         fields = ('title',)
 
-    tags = forms.CharField()
+    tags = forms.CharField(required=False)
 
 
 class CommentForm(forms.ModelForm):
