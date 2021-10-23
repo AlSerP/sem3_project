@@ -4,14 +4,22 @@ from .models import Image, Comment
 
 
 class ImageForm(forms.ModelForm):
-
     class Meta:
         model = Image
-        fields = ('user', 'title', 'image',)
+        fields = ('title', 'image')
+
+    tags = forms.CharField()
+
+
+class ImageUpdate(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ('title',)
+
+    tags = forms.CharField()
 
 
 class CommentForm(forms.ModelForm):
-
     class Meta:
         model = Comment
         fields = ('image', 'user', 'text',)

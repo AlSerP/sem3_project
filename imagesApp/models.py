@@ -9,12 +9,22 @@ def directory_path(instance, filename):
     return ('user_{0}/%s/{1}' % upload_time).format(instance.user.id, filename)
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=32, null=False, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/images/show?search={self.name}'
+
+
 class Image(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
+    tags = models.ManyToManyField(Tag, null=True)
     image = models.ImageField(upload_to=directory_path)
     rating = models.IntegerField(default=0)
-    tags = models.CharField(max_length=1024, default='')
 
     def get_tags(self) -> List[str]:
         return str(self.tags).split(',')

@@ -7,8 +7,8 @@
     <h2>{{ object.title }}</h2>
     <p>by {{ object.user }}</p>
     <p>Tags:
-    {% for tag in object.get_tags %}
-        <span style="padding: 4px; background-color: lightblue;">{{ tag }}</span>
+    {% for tag in object.tags.all %}
+        <span style="padding: 4px; background-color: lightblue;"><a href="{{ tag.get_absolute_url }}">{{ tag }}</a></span>
     {% endfor %}
     </p>
 

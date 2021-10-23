@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, DeleteView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.datastructures import MultiValueDictKeyError
 from django.core.exceptions import PermissionDenied
 from .forms import ImageForm
-from .models import Image, Comment
+from .models import Image, Comment, Tag
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
@@ -13,23 +14,35 @@ def does_have_permission(user, obj):
         raise PermissionDenied({"message": "You don't have permission to access"})
 
 
-class UploadImageView(LoginRequiredMixin, CreateView):
-    """Регестрация пользователя"""
-    model = Image
-    template_name = 'upload_image.html'
-    success_url = reverse_lazy('user_images')  # используется, поскольку становится доступно с запазданием
-    fields = ['title', 'image', 'tags']
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.rating = 0
-        return super().form_valid(form)
-
-
 class ImageView(UpdateView):
     model = Image
     fields = '__all__'
     template_name = 'image/image_page.html'
+
+
+class UploadImageView(LoginRequiredMixin, CreateView):
+    """Регестрация пользователя"""
+    model = Image
+    form_class = ImageForm
+    template_name = 'upload_image.html'
+    success_url = reverse_lazy('user_images')  # используется, поскольку становится доступно с запазданием
+
+    def form_valid(self, form):
+        image = form.save(commit=False)
+        user = self.request.user
+        form.instance.user = user
+        form.instance.rating = 0
+        form.save()
+        for tag in form.cleaned_data['tags'].replace(' ', '').split(','):
+            tag_obj: Tag
+            if Tag.objects.filter(name=tag).exists():
+                tag_obj = image.tags.add(Tag.objects.get(name=tag))
+            else:
+                tag_obj: Tag = Tag(name=tag)
+                tag_obj.save()
+            form.instance.tags.add(tag_obj)
+            form.save()
+        return super(UploadImageView, self).form_valid(form)
 
 
 class ImageUpdateView(LoginRequiredMixin, UpdateView):
@@ -83,7 +96,10 @@ class AllImagesView(ListView):
 
     def get_queryset(self, **kwargs):
         """Request as /shaw?search=tag"""
-        if self.request.GET['search']:
-            return Image.objects.filter(tags__contains=self.request.GET['search'])
-
-        return Image.objects.all()
+        try:
+            tag_name = self.request.GET['search']
+            if Tag.objects.filter(name=tag_name).exists():
+                # return Image.objects.filter(tags__contains=self.request.GET['search'])
+                return Tag.objects.get(name=tag_name).image_set.all()
+        except MultiValueDictKeyError:
+            return Image.objects.all()

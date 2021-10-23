@@ -9,12 +9,14 @@
     <ul>
         {% for image in images %}
             <li>
-                <h3>{{ image.title }}</h3>
+                <h5>{{ image.title }}</h5>
 
                 <a href="{% url 'image_show' image.pk %}"><img src="{{ image.image.url }}" style="max-width: 400px; margin-left: 50px"></a>
                 <hr align="left" color="#333" width="500px" size="1px">
             </li>
         {% endfor %}
     </ul>
+    {% else%}
+        <h3>We can't find anything :(</h3>
     {% endif %}
 {% endblock%}
