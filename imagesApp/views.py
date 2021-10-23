@@ -65,6 +65,22 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
         return super().get(request, *args, **kwargs)
 
 
+class AllImagesView(ListView):
+    model = Image
+    context_object_name = 'images'
+    template_name = 'image/images.html'
+
+    def get_queryset(self, **kwargs):
+        """Request as /shaw?search=tag"""
+        try:
+            tag_name = self.request.GET['search']
+            if Tag.objects.filter(name=tag_name).exists():
+                # return Image.objects.filter(tags__contains=self.request.GET['search'])
+                return Tag.objects.get(name=tag_name).image_set.all()
+        except MultiValueDictKeyError:
+            return Image.objects.all()
+
+
 class UploadCommentView(LoginRequiredMixin, CreateView):
     """Регестрация пользователя"""
     model = Comment
@@ -89,17 +105,8 @@ def dislike_image(request, **kwargs):
     return redirect(image.get_absolute_url())
 
 
-class AllImagesView(ListView):
-    model = Image
-    context_object_name = 'images'
-    template_name = 'image/images.html'
-
-    def get_queryset(self, **kwargs):
-        """Request as /shaw?search=tag"""
-        try:
-            tag_name = self.request.GET['search']
-            if Tag.objects.filter(name=tag_name).exists():
-                # return Image.objects.filter(tags__contains=self.request.GET['search'])
-                return Tag.objects.get(name=tag_name).image_set.all()
-        except MultiValueDictKeyError:
-            return Image.objects.all()
+def delete_tag(request, **kwargs):
+    image = Image.objects.get(pk=kwargs['pk'])
+    tag = Tag.objects.get(name=kwargs['tag'])
+    image.tags.remove(tag)
+    return redirect(image.get_absolute_url() + '/edit')

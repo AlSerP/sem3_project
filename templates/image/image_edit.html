@@ -3,12 +3,19 @@
 {% block title %} Update Photo {% endblock %}
 
 {% block content %}
-    <h2>Edit the image</h2>
+<h2>Edit the image</h2>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update</button>
-    </form>
+<p>
+    Delete tags:
+    {% for tag in object.tags.all %}
+    <a href="{% url 'tag_delete' object.pk tag.name %}"><span style="padding: 4px; background-color: lightcoral;">{{ tag.name }}</span></a>
+    {% endfor %}
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update</button>
+</form>
 
 {% endblock %}

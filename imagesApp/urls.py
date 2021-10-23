@@ -13,4 +13,5 @@ urlpatterns = [
     path('<int:pk>/comment', views.UploadCommentView.as_view(), name='comment_upload'),
     path('<int:pk>/like', views.like_image, name='like'),
     path('<int:pk>/dislike', views.dislike_image, name='dislike'),
+    path('<int:pk>/<str:tag>/delete', views.delete_tag, name='tag_delete'),
 ]
