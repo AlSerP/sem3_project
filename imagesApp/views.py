@@ -18,7 +18,7 @@ class UploadImageView(LoginRequiredMixin, CreateView):
     model = Image
     template_name = 'upload_image.html'
     success_url = reverse_lazy('user_images')  # используется, поскольку становится доступно с запазданием
-    fields = ['title', 'image']
+    fields = ['title', 'image', 'tags']
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -34,7 +34,7 @@ class ImageView(UpdateView):
 
 class ImageUpdateView(LoginRequiredMixin, UpdateView):
     model = Image
-    fields = ['title']
+    fields = ['title', 'tags']
     template_name = 'image/image_edit.html'
 
     def get(self, request, *args, **kwargs):
@@ -79,7 +79,11 @@ def dislike_image(request, **kwargs):
 class AllImagesView(ListView):
     model = Image
     context_object_name = 'images'
-    template_name = 'home.html'
+    template_name = 'image/images.html'
 
-    def get_queryset(self):
+    def get_queryset(self, **kwargs):
+        """Request as /shaw?search=tag"""
+        if self.request.GET['search']:
+            return Image.objects.filter(tags__contains=self.request.GET['search'])
+
         return Image.objects.all()

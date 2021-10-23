@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from time import gmtime, strftime
+from typing import List
 
 
 def directory_path(instance, filename):
@@ -13,8 +14,12 @@ class Image(models.Model):
     title = models.CharField(max_length=20)
     image = models.ImageField(upload_to=directory_path)
     rating = models.IntegerField(default=0)
+    tags = models.CharField(max_length=1024, default='')
 
-    def like(self, user):
+    def get_tags(self) -> List[str]:
+        return str(self.tags).split(',')
+
+    def like(self, user) -> None:
         """Controls likes system of Image"""
         print(user.username, 'liked', self.pk)
         like_dislike = LikeDislike.objects.filter(user=user, content=self).first()
@@ -33,7 +38,7 @@ class Image(models.Model):
             self.rating -= 1
             self.save()
 
-    def dislike(self, user):
+    def dislike(self, user) -> None:
         """Controls dislikes system of Image"""
         print(user.username, 'disliked', self.pk)
         like_dislike = LikeDislike.objects.filter(user=user, content=self).first()
@@ -56,7 +61,7 @@ class Image(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return f'/images/{self.pk}'
 
 

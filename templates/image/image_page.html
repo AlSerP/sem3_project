@@ -6,6 +6,11 @@
 
     <h2>{{ object.title }}</h2>
     <p>by {{ object.user }}</p>
+    <p>Tags:
+    {% for tag in object.get_tags %}
+        <span style="padding: 4px; background-color: lightblue;">{{ tag }}</span>
+    {% endfor %}
+    </p>
 
     <img src="{{ object.image.url }}" style="max-width: 90vw"> <br>
     {% if object.user == user %}
