@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.nav-item{
+
+
+  padding-right: 10px;
+}
+ .navbar{
+  font-family:serif;
+  font-size: 20px;
+  background: #333;
+ }
+ .dropdown{
+   margin-left: 50px;
+ }
+ .navbar-toggler{
+
+  margin-left: 110px;
+ }
+ .dropdown-menu{
+
+  margin: -130px;
+
+  }
+.navbar-brand{
+  color: aquamarine !important;
+  font-size: 36px;
+
+  
+}
+
+
+.navbar-light .navbar-toggler-icon{
+ background-image: none;
+}
+.navbar-light .navbar-toggler{
+
+  color: aquamarine;
+  border-color: aquamarine;
+}
+
+
+.form-control{
+  
+max-width: 400px;
+  
+}
+.btn-outline-success:hover{
+  background-color: aquamarine;
+  background-color: aquamarine;
+}
+.btn-outline-success{
+  background-color: aquamarine;
+  background-color: aquamarine;
+
+}
+
+.row{
+
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin:0 auto;
+}
+
+.row a img{
+
+  height: 100%;
+  width:100%;
+  object-fit: cover;
+  padding: 20px;
+}
+
+.row a img:hover{
+
+  transform:scale(1.05);
+}
