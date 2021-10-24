@@ -17,7 +17,7 @@ def does_have_permission(user, obj):
 class ImageView(UpdateView):
     model = Image
     fields = '__all__'
-    template_name = 'image/image_page.html'
+    template_name = 'images/image_page.html'
 
 
 class UploadImageView(LoginRequiredMixin, CreateView):
@@ -48,7 +48,7 @@ class UploadImageView(LoginRequiredMixin, CreateView):
 class ImageUpdateView(LoginRequiredMixin, UpdateView):
     model = Image
     form_class = ImageUpdate
-    template_name = 'image/image_edit.html'
+    template_name = 'images/image_edit.html'
 
     def get(self, request, *args, **kwargs):
         does_have_permission(self.request.user, Image.objects.get(pk=self.kwargs['pk']))
@@ -72,7 +72,7 @@ class ImageUpdateView(LoginRequiredMixin, UpdateView):
 
 class ImageDeleteView(LoginRequiredMixin, DeleteView):
     model = Image
-    template_name = 'image/image_delete.html'
+    template_name = 'images/image_delete.html'
     success_url = reverse_lazy('home')
 
     def get(self, request, *args, **kwargs):
@@ -83,7 +83,7 @@ class ImageDeleteView(LoginRequiredMixin, DeleteView):
 class AllImagesView(ListView):
     model = Image
     context_object_name = 'images'
-    template_name = 'image/images.html'
+    template_name = 'images/images.html'
 
     def get_queryset(self, **kwargs):
         """Request as /shaw?search=tag"""

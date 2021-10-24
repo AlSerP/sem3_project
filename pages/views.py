@@ -18,15 +18,6 @@ class HomePageView(ListView):
         return Image.objects.all()[:5]
 
 
-class TestPageView(ListView):
-    model = Image
-    context_object_name = 'images'
-    template_name = 'index.html'
-
-    def get_queryset(self):
-        return Image.objects.all()[:3]
-
-
 class UserImagesView(LoginRequiredMixin, ListView):
     model = Image
     context_object_name = 'images'  # Name of list
@@ -34,3 +25,11 @@ class UserImagesView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Image.objects.filter(user=self.request.user)
+
+
+class CategoryPageView(TemplateView):
+    template_name = 'images/category.html'
+
+
+class TestPageView(TemplateView):
+    template_name = 'test.html'
