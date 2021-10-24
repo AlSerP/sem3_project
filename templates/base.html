@@ -16,6 +16,8 @@
       background-size: cover;
       height: 500px !important;
     }
+
+
     </style>
 
 </head>
@@ -34,7 +36,17 @@
 
         <div class="dropdown">
             <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{% static 'images/account_circle_black_24dp (1).svg'%}" style="height:50px ;" alt="">
+                {% if user.is_authenticated %}
+
+                {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" style="height: 50px; border-radius: 50%" alt="">
+                {% else %}
+                <img src="{% static 'images/account_circle_black_24dp (1).svg'%}" style="height: 50px" alt="">
+                {% endif %}
+
+                {% else %}
+                <img src="{% static 'images/account_circle_black_24dp (1).svg'%}" style="height: 50px" alt="">
+                {% endif %}
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -85,9 +97,9 @@
 <!--        {% endif %}-->
 <!--    </header>-->
 <main style="margin-top: 80px">
-{% block content %}
+    {% block content %}
 
-{% endblock %}
+    {% endblock %}
 </main>
 
 <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>

@@ -10,8 +10,10 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('username', 'email', )
 
 
-class CustomUserChangeFrom(UserChangeForm):
+class CustomUserChangeFrom(forms.ModelForm):
 
     class Meta(UserChangeForm.Meta):
         model = CustomUser
-        fields = ('username', 'email', )
+        fields = ('username', 'email', 'first_name', 'last_name', 'avatar')
+
+    # avatar = forms.FileField(required=False)

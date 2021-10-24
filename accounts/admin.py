@@ -9,7 +9,7 @@ from .models import CustomUser
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeFrom
-    list_display = ['email', 'username', 'rating']
+    list_display = ['email', 'username', 'rating', 'avatar']
     model = CustomUser
 
 

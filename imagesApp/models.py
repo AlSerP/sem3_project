@@ -12,6 +12,9 @@ def directory_path(instance, filename):
 class Tag(models.Model):
     name = models.CharField(max_length=32, null=False, unique=True)
 
+    class Meta(object):
+        unique_together = ('name',)
+
     def __str__(self):
         return self.name
 
@@ -22,7 +25,7 @@ class Tag(models.Model):
 class Image(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
-    tags = models.ManyToManyField(Tag, null=True)
+    tags = models.ManyToManyField(Tag)
     image = models.ImageField(upload_to=directory_path)
     rating = models.IntegerField(default=0)
 

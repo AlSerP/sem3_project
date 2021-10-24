@@ -1,4 +1,4 @@
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserChangeFrom
 from .models import CustomUser
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView
@@ -37,12 +37,14 @@ class PasswordResetView(LoginRequiredMixin, CreateView):
 
 
 class UserView(TemplateView):
+    """Отображение информации пользователя"""
     template_name = 'users/user_information.html'
 
 
 class UpdateUserView(UpdateView):
+    """Обновление настроек пользователя"""
     model = CustomUser
-    fields = ['first_name', 'last_name', 'email']
+    form_class = CustomUserChangeFrom
     template_name = 'users/user_edit.html'
 
     success_url = '/user/information'

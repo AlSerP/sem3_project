@@ -25,7 +25,7 @@ class UploadImageView(LoginRequiredMixin, CreateView):
     model = Image
     form_class = ImageForm
     template_name = 'upload_image.html'
-    success_url = reverse_lazy('user_images')  # используется, поскольку становится доступно с запазданием
+    success_url = reverse_lazy('user_images')
 
     def form_valid(self, form):
         image = form.save(commit=False)
