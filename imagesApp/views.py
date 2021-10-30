@@ -21,7 +21,6 @@ class ImageView(UpdateView):
 
 
 class UploadImageView(LoginRequiredMixin, CreateView):
-    """Регестрация пользователя"""
     model = Image
     form_class = ImageForm
     template_name = 'upload_image.html'

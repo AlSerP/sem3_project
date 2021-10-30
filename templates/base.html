@@ -24,7 +24,7 @@
 
 <body>
 <!-- Navbar ----------------------------------------------------->
-<nav class="navbar fixed-top navbar-expand-lg navbar-light ">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light" style="border-bottom: aquamarine solid;">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}" style="font-size: 36px;">PW</a>
 
@@ -41,11 +41,11 @@
                 {% if user.avatar %}
                 <img src="{{ user.avatar.url }}" style="height: 50px; border-radius: 50%" alt="">
                 {% else %}
-                <img src="{% static 'images/account_circle_black_24dp (1).svg'%}" style="height: 50px" alt="">
+                <img src="{% static 'images/account_circle_white_24dp.svg'%}" style="height: 50px" alt="">
                 {% endif %}
 
                 {% else %}
-                <img src="{% static 'images/account_circle_black_24dp (1).svg'%}" style="height: 50px" alt="">
+                <img src="{% static 'images/account_circle_white_24dp.svg'%}" style="height: 50px" alt="">
                 {% endif %}
             </a>
 

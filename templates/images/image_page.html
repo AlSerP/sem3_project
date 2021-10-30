@@ -3,31 +3,185 @@
 {% block title %} {{ object.title }} {% endblock %}
 
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/image_page.css'%}" type="text/css">
+<link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css'%}">
 
-    <h2>{{ object.title }}</h2>
-    <p>by {{ object.user }}</p>
-    <p>Tags:
-    {% for tag in object.tags.all %}
-        <span style="padding: 4px; background-color: lightblue;"><a href="{{ tag.get_absolute_url }}">{{ tag }}</a></span>
-    {% endfor %}
-    </p>
+<div class="container-fluid"
+     style="text-shadow: rgba(0, 0, 0, 0.3) 0px 1px 0px; font-size: 14px; font-weight: 200; position: relative; background: rgb(56, 56, 58); color: rgb(204, 204, 204); min-height: 507px;">
 
-    <img src="{{ object.image.url }}" style="max-width: 90vw"> <br>
-    {% if object.user == user %}
-        <span>
-            <a href="{% url 'image_edit' object.pk %}">Edit</a> |
-            <a href="{% url 'image_delete' object.pk %}">Delete</a> |
-        </span>
-    {% else %}
-        <span>{{ object.rating }} - <a href="{% url 'like' object.pk %}">Like</a> or
-            <a href="{% url 'dislike' object.pk %}">Dislike</a></span> |
-    {% endif %}
-    <a href="{{ object.image.url }}" download>Save</a> |
-    <a href="{% url 'home' %}">Home page</a> |
-    <a href="{% url 'comment_upload' object.pk %}">Comment</a>
-    <ul>
-        {% for comment in object.comments.all %}
-            <li id="{{ comment.pk }}"><b>{{ comment.user }}</b> - {{ comment.text }}</li>
-        {% endfor %}
-    </ul>
+    <div class="row-fluid" id="zonePhotoIn" style="width: 100%;display: table;">
+        <div class="col-md-12" style="width: 100%;display: table-cell;vertical-align: middle;" align="center">
+            <div style="vertical-align: middle;"><img class="mainPhoto" src="{{ object.image.url }}" alt=""
+                                                      title="ПЕСЕЕЛЬ">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div style="background:#333;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1 col-xs-3" style="color: #333">
+                <img class="avatar" align="left" src="{{ object.user.avatar.url }}" alt=""
+                     style="position: relative; z-index: 1;">
+            </div>
+            <div class="col-md-6  col-xs-9">
+                <h1 style="width: 95%;  margin-top:2px;color:azure;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-bottom: 2px;"
+                    id="photoTitle">{{ object.title }}</h1>
+                <div style="margin-top: 1px">
+                    <h2 style="vertical-align: middle;display:inline-block;font-size:1.4em;margin: 0;"><a href="#"
+                                                                                                          style="color:azure;text-decoration:none;">{{ object.user }}</a>
+                    </h2>
+
+
+                </div>
+                <div style="margin-left:14px">
+                    <div style="margin-top:12px;color: #bbb;padding-bottom:10px" id="descPhotoMainBlock"><i>tags</i>
+                    </div>
+                    <div class="tagList">
+                        {% for tag in object.tags.all %}
+                        <a class="tag" href="{{ tag.get_absolute_url }}">{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                    <div class="#" id="copyrightAuthor"
+                         style="font-size:10px;margin:10px 0 15px 0;clear:both; color: azure;">загружено <span
+                            class="timeAdd" style="color: azure;">03 окт, 2021</span> &nbsp;
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3 col-xs-6 col-xs-offset-2 col-md-offset-0" style="color:azure;">
+                <a href="{% url 'like' object.pk %}" class="btn btn-success btn-rounded btn-lg" data-mdb-ripple-color="#ffffff"
+                        style="background-color:aquamarine; margin-top:6px; font-size: 20px;"> {{ object.rating }} <i class="fa fa-thumbs-o-up"></i></a>
+                </button>
+
+                <a href="{{ object.image.url }}" class="btn btn-success btn-rounded"
+                   style="background-color:chocolate; margin-top:6px; font-size: 20px;"> Скачать <i
+                        class="fa fa-download" aria-hidden="true"></i></a>
+
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="comments" style="color: azure;"> Комментарии <p><input type="text" size="25"
+                                                                                       style="border-radius: 15px; border-color: aquamarine; margin-top: 20px;">
+                    </p>
+                        <p style="margin-top: 20px;"><input class="btn btn-sm" name="send" type="submit"
+                                                            value="Добавить" style="background: aquamarine; "></p>
+                        {% for comment in object.comments.all %}
+                        <div style="margin-top: 30px" class="iComm ">
+                            {% if comment.user.avatar %}
+                            <img class="avatar" align="left" src="{{ comment.user.avatar.url }}">
+                            {% else %}
+                            <img class="avatar" align="left"
+                                 src="{% static 'images/account_circle_white_24dp.svg'%}">
+                            {% endif %}<span>
+                            <b><a class="answer" href="{{ comment.user.get_absolute_url }}"
+                                  style="text-decoration: none; color:chocolate;">{{ comment.user }}</a></b><a
+                                href="№"><span style="color:#999;opacity:.7"></span></a></span></span>
+                            <div style="margin-top:5px">{{ comment.text }}</div>
+                            <div class="replyBlock" style="margin:2px 0px 0px 60px"><span
+                                    class="comm_date">04 окт, 2021</span> </span></div>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-7" align="right">
+
+                    <div class="col-8" id="gal">
+                        <h2 style="text-align: center; color: azure;"> Остальные фотографии пользователя</h2>
+                        <section class="gallery min-vh-100">
+                            <div class="container-lg">
+                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                                    {% for image in object.user.images.all %}
+                                    <div class="col">
+                                        <a href="{{ image.get_absolute_url }}" data-lightbox="mygallery" data-title="Caption Here">
+                                            <img src="{{ image.url }}" class="img-fluid" class="gallery-item" alt="gallery">
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+<!--                                    <div class="col">-->
+<!--                                        <a href="img/1.jpg" data-lightbox="mygallery" data-title="Caption Here">-->
+<!--                                            <img src="img/10.jpg" class="img-fluid" class="gallery-item" alt="gallery">-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div class="col">-->
+<!--                                        <a href="img/1.jpg" data-lightbox="mygallery" data-title="Caption Here">-->
+<!--                                            <img src="img/1.jpg" class="img-fluid" class="gallery-item" alt="gallery">-->
+<!--                                        </a></div>-->
+<!--                                    <div class="col">-->
+<!--                                        <a href="img/2.jpg" data-lightbox="mygallery" data-title="Caption Here">-->
+<!--                                            <img src="img/2.jpg" class="img-fluid" class="gallery-item" alt="gallery">-->
+<!--                                        </a></div>-->
+<!--                                    <div class="col">-->
+<!--                                        <a href="img/3.jpg" data-lightbox="mygallery" data-title="Caption Here">-->
+<!--                                            <img src="img/3.jpg" class="img-fluid" class="gallery-item" alt="gallery">-->
+<!--                                        </a></div>-->
+<!--                                    <div class="col">-->
+<!--                                        <a href="img/4.jpg" data-lightbox="mygallery" data-title="Caption Here">-->
+<!--                                            <img src="img/4.jpg" class="img-fluid" class="gallery-item" alt="gallery">-->
+<!--                                        </a></div>-->
+<!--                                    <div class="col">-->
+<!--                                        <a href="img/5.jpg" data-lightbox="mygallery" data-title="Caption Here">-->
+<!--                                            <img src="img/5.jpg" class="img-fluid" class="gallery-item" alt="gallery">-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div class="col">-->
+<!--                                        <a href="img/9.jpg" data-lightbox="mygallery" data-title="Caption Here">-->
+<!--                                            <img src="img/9.jpg" class="img-fluid" class="gallery-item" alt="gallery">-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div class="col">-->
+<!--                                        <a href="img/8.jpg" data-lightbox="mygallery" data-title="Caption Here">-->
+<!--                                            <img src="img/8.jpg" class="img-fluid" class="gallery-item" alt="gallery">-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<!--    <h2>{{ object.title }}</h2>-->
+<!--    <p>by {{ object.user }}</p>-->
+<!--    <p>Tags:-->
+<!--    {% for tag in object.tags.all %}-->
+<!--        <span style="padding: 4px; background-color: lightblue;"><a href="{{ tag.get_absolute_url }}">{{ tag }}</a></span>-->
+<!--    {% endfor %}-->
+<!--    </p>-->
+
+<!--    <img src="{{ object.image.url }}" style="max-width: 90vw"> <br>-->
+<!--    {% if object.user == user %}-->
+<!--        <span>-->
+<!--            <a href="{% url 'image_edit' object.pk %}">Edit</a> |-->
+<!--            <a href="{% url 'image_delete' object.pk %}">Delete</a> |-->
+<!--        </span>-->
+<!--    {% else %}-->
+<!--        <span>{{ object.rating }} - <a href="{% url 'like' object.pk %}">Like</a> or-->
+<!--            <a href="{% url 'dislike' object.pk %}">Dislike</a></span> |-->
+<!--    {% endif %}-->
+<!--    <a href="{{ object.image.url }}" download>Save</a> |-->
+<!--    <a href="{% url 'home' %}">Home page</a> |-->
+<!--    <a href="{% url 'comment_upload' object.pk %}">Comment</a>-->
+<!--    <ul>-->
+<!--        {% for comment in object.comments.all %}-->
+<!--            <li id="{{ comment.pk }}"><b>{{ comment.user }}</b> - {{ comment.text }}</li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
 {% endblock %}
