@@ -3,7 +3,7 @@
 Клонирование репозитория:
 
 ```bash
-$ git clone https://github.com/AlSerP/sem3_project.git
+$ git clone https://github.com/AlSerP/draumstafir.git
 ```
 
 ## Работа с *git*
@@ -11,7 +11,7 @@ $ git clone https://github.com/AlSerP/sem3_project.git
 Создание внутренней переменной origin с ссылкой на репозиторий
 
 ```bash
-$ git remote add origin https://github.com/AlSerP/sem3_project.git
+$ git remote add origin https://github.com/AlSerP/draumstafir.git
 ```
 
 Загрузить изменения с репозитория с текущей ветки:
@@ -65,12 +65,6 @@ $ git push origin branch
 ```bash
 $ python3 -m venv new_venv
 ```
--------------
-Если получаем ошибку, нужно установить:
-```bash
-pip install virtualenv
-```
--------------
 
 Вход в *venv*:
 
