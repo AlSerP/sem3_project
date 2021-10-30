@@ -1,29 +1,24 @@
-
 .nav-item{
-
-
   padding-right: 10px;
 }
- .navbar{
-  font-family:serif;
+.navbar{
+  font-family: serif;
   font-size: 20px;
   background: #333;
- }
- .dropdown{
-   margin-left: 50px;
- }
+}
+
+.dropdown{
+  margin-left: 50px;
+}
 
  .dropdown-menu{
-
   margin: -130px;
+}
 
-  }
 .navbar-brand{
   color: aquamarine !important;
   font-size: 36px;
-  
 }
-
 
 .navbar-light .navbar-toggler-icon{
  background-image: none;
@@ -35,10 +30,8 @@ img{
 }
 
 .mainPhoto{
-
   max-height: calc(100vh - 120px);
   max-width: calc(100vw - 100px);
-  
 }
 
 .avatar{
@@ -65,8 +58,8 @@ h1 {
   font-size: 2em!important;
   font-weight:normal;
   font-family: Arial, 'Geneva CY', Sans-Serif;
-
-  letter-spacing: 0.05em;}
+  letter-spacing: 0.05em;
+}
 
 h2{
   font-size:15px !important;
@@ -75,15 +68,14 @@ h2{
 a:hover {
   color: aquamarine !important; /* Цвет ссылки при наведении на нее курсора мыши */  
   text-decoration: underline; /* Добавляем подчеркивание */
- }
+}
+
  .container {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
-
-
 
 div.tagList .tag {
     white-space: nowrap;
@@ -97,23 +89,14 @@ div.tagList .tag {
     margin: 0 4px 4px 0;
 }
 .btn{
-
   border-radius: 50px !important;
 }
 
 .comm_date {
-
   font-size: 10px;
 }
 
-
-
-
-
-
-
 .row-cols-1>*{
-
   margin-top: 20px;
 }
 
@@ -123,23 +106,40 @@ div.tagList .tag {
   width:100%;
   object-fit: cover;
   border-radius: 5px;
-
   cursor: pointer;
 }
 
 .img-fluid:hover{
-
-  
   box-shadow:0 0 20px aquamarine;
-  
 }
 
 .btn-outline-success:hover{
   background-color: aquamarine;
-  background-color: aquamarine;
 }
 .btn-outline-success{
   background-color: aquamarine;
-  background-color: aquamarine;
-
+}
+.btn-download {
+  margin-top:6px;
+  font-size: 20px;
+  height: 48px;
+  color: white;
+  border-color: aquamarine;
+  transition: .2s;
+}
+.btn-download:hover {
+  border-color: aquamarine;
+  text-decoration: none;
+}
+.btn-like {
+  margin-top:6px;
+  font-size: 20px;
+  height: 48px;
+  color: white;
+  border-color: aquamarine;
+  transition: .2s;
+}
+.btn-like:hover {
+  border-color: aquamarine;
+  text-decoration: none;
 }
