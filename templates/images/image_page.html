@@ -13,7 +13,7 @@
     <div class="row-fluid" id="zonePhotoIn" style="width: 100%;display: table;">
         <div class="col-md-12" style="width: 100%;display: table-cell;vertical-align: middle;" align="center">
             <div style="vertical-align: middle;"><img class="mainPhoto" src="{{ object.image.url }}" alt=""
-                                                      title="ПЕСЕЕЛЬ">
+                                                      title="object.title">
             </div>
         </div>
     </div>
@@ -32,9 +32,7 @@
                 <h1 style="width: 95%;  margin-top:2px;color:azure;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;margin-bottom: 2px;"
                     id="photoTitle">{{ object.title }}</h1>
                 <div style="margin-top: 1px">
-                    <h2 style="vertical-align: middle;display:inline-block;font-size:1.4em;margin: 0;"><a href="#"
-                                                                                                          style="color:azure;text-decoration:none;">{{
-                        object.user }}</a>
+                    <h2 style="vertical-align: middle;display:inline-block;font-size:1.4em;margin: 0;"><a href="#" style="color:azure;text-decoration:none;">{{ object.user }}</a>
                     </h2>
 
 
@@ -126,32 +124,4 @@
         </div>
     </div>
 </div>
-
-
-<!--    <h2>{{ object.title }}</h2>-->
-<!--    <p>by {{ object.user }}</p>-->
-<!--    <p>Tags:-->
-<!--    {% for tag in object.tags.all %}-->
-<!--        <span style="padding: 4px; background-color: lightblue;"><a href="{{ tag.get_absolute_url }}">{{ tag }}</a></span>-->
-<!--    {% endfor %}-->
-<!--    </p>-->
-
-<!--    <img src="{{ object.image.url }}" style="max-width: 90vw"> <br>-->
-<!--    {% if object.user == user %}-->
-<!--        <span>-->
-<!--            <a href="{% url 'image_edit' object.pk %}">Edit</a> |-->
-<!--            <a href="{% url 'image_delete' object.pk %}">Delete</a> |-->
-<!--        </span>-->
-<!--    {% else %}-->
-<!--        <span>{{ object.rating }} - <a href="{% url 'like' object.pk %}">Like</a> or-->
-<!--            <a href="{% url 'dislike' object.pk %}">Dislike</a></span> |-->
-<!--    {% endif %}-->
-<!--    <a href="{{ object.image.url }}" download>Save</a> |-->
-<!--    <a href="{% url 'home' %}">Home page</a> |-->
-<!--    <a href="{% url 'comment_upload' object.pk %}">Comment</a>-->
-<!--    <ul>-->
-<!--        {% for comment in object.comments.all %}-->
-<!--            <li id="{{ comment.pk }}"><b>{{ comment.user }}</b> - {{ comment.text }}</li>-->
-<!--        {% endfor %}-->
-<!--    </ul>-->
 {% endblock %}
