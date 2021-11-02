@@ -3,12 +3,94 @@
 {% block title %} Edit My Info {% endblock %}
 
 {% block content %}
-    <h2>{{ user.username }}'s Information</h2>
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/user_styles.css'%}" type="text/css">
 
-    <p>{{ user.first_name }} {{ user.last_name }}</p>
-    <p>{{ user.email }}</p>
-    <p>{{ user.rating }}</p>
+<div class="container">
+    <div class="row">
 
-    <a href="{% url 'user_settings' %}">Edit</a>
+        <div class="col" id="userInfo" style="text-align: center;">
+            <h2 style="text-align: center;">{{ user.username }}</h2>
+
+            {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" style="border-style: solid; border-color: aquamarine;" class="img-fluid"
+                 alt="">
+            {% else %}
+            <img src="{% static 'images/account_circle_black_24dp (1).svg'%}"
+                 style="border-style: solid; border-color: aquamarine;" class="img-fluid" alt="">
+            {% endif %}
+            <div>
+                <!--                <p><a href="#">Изменить фото профиля</a></p>-->
+                <p><a href="{% url 'upload' %}">Выложить фото</a></p>
+                <p><a href="{% url 'user_settings' %}">Редактировать страницу</a></p>
+            </div>
+            <h4 style="margin-top: 10px;"><span>О себе</span></h4>
+            <div class="about">
+                <div class="form-floating">
+                    <!--                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>-->
+                    <p>Когда-нибудь я смогу рассказать о себе</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8" id="gal">
+            <h2 style="text-align: center;"> Выложенные фотографии</h2>
+            <section class="gallery min-vh-100">
+                <div class="container-lg">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                        <div class="col">
+                            <a href="img/canada.jpg" data-lightbox="mygallery" data-title="Caption Here">
+                                <img src="{% static 'images/canada.jpg'%}" class="img-fluid gallery-item" alt="gallery">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="img/canada.jpg" data-lightbox="mygallery" data-title="Caption Here">
+                                <img src="{% static 'images/1.jpg'%}" class="img-fluid" class="gallery-item" alt="gallery">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="img/canada.jpg" data-lightbox="mygallery" data-title="Caption Here">
+                                <img src="{% static 'images/2.jpg'%}" class="img-fluid" class="gallery-item" alt="gallery">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="img/canada.jpg" data-lightbox="mygallery" data-title="Caption Here">
+                                <img src="{% static 'images/3.jpg'%}" class="img-fluid" class="gallery-item" alt="gallery">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="img/canada.jpg" data-lightbox="mygallery" data-title="Caption Here">
+                                <img src="{% static 'images/canada.jpg'%}" class="img-fluid gallery-item" alt="gallery">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="img/canada.jpg" data-lightbox="mygallery" data-title="Caption Here">
+                                <img src="{% static 'images/1.jpg'%}" class="img-fluid" class="gallery-item" alt="gallery">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="img/canada.jpg" data-lightbox="mygallery" data-title="Caption Here">
+                                <img src="{% static 'images/2.jpg'%}" class="img-fluid" class="gallery-item" alt="gallery">
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a href="img/canada.jpg" data-lightbox="mygallery" data-title="Caption Here">
+                                <img src="{% static 'images/3.jpg'%}" class="img-fluid" class="gallery-item" alt="gallery">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!--    <h2>{{ user.username }}'s Information</h2>-->
+
+<!--    <p>{{ user.first_name }} {{ user.last_name }}</p>-->
+<!--    <p>{{ user.email }}</p>-->
+<!--    <p>{{ user.rating }}</p>-->
+
+<!--    <a href="{% url 'user_settings' %}">Edit</a>-->
 
 {% endblock %}

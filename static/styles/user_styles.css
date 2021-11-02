@@ -1,0 +1,41 @@
+#userInfo {
+  width: 259px;
+  float: left;
+  margin-bottom: 25px;
+  overflow: hidden;
+}
+#userInfo .notice {
+  font-size: 11px;
+  text-align: left;
+  padding-top: 8px;
+  margin: 0px 0px 5px 0px;
+}
+.notice {
+  padding: 10px;
+  background: #FFFBE7;
+  text-align: center;
+  border: 1px solid #d4d4d4;
+  margin: 3px 0 3px 0;
+}
+.about{
+  margin-top:5px;
+  border-style: solid;
+  border-color: aquamarine;
+}
+
+.row{
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin:0 auto;
+}
+#gal img{
+  height: 100%;
+  width:100%;
+  object-fit: cover;
+  /* box-shadow:0 0 20px aquamarine; */
+  cursor: pointer;
+}
+.row-cols-1>*{
+  margin-top: 20px;
+}
