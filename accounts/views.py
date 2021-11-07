@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.conf import settings
+from django.contrib.auth import authenticate
+from django.shortcuts import redirect
 
 
 class SignUpView(CreateView):
@@ -19,11 +21,12 @@ class SignUpView(CreateView):
         """Автоматический вход пользователя при удачной регистрации"""
         form.save()
 
-        username = self.request.POST['username']
-        password = self.request.POST['password1']
+        username = self.request.POST['id_username']
+        password = self.request.POST['id_password1']
 
         user = authenticate(username=username, password=password)
-        login(self.request, user)
+        if user is not None:
+            login(self.request, user)
 
         return super().form_valid(form)
 
@@ -51,3 +54,14 @@ class UpdateUserView(UpdateView):
 
     def get_object(self):
         return self.request.user
+
+
+def login_user(request):
+    username = request.POST['id_username']
+    password = request.POST['id_password']
+    user = authenticate(username='john', password='secret')
+    if user is not None:
+        login(request, user)
+        redirect('/')
+    else:
+        redirect('/')
