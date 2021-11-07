@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+body {
+  background-color: #333;
+  color: white;
+}
+
 .nav-item{
   padding-right: 10px;
 }
